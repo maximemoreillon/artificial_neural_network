@@ -13,7 +13,7 @@ int validation_input_index = 0;
 int[] network_structure = new int[0]; // layers will be added later
 
 void setup(){
-  size(displayWidth, displayHeight);
+  size(1280, 900);
   
   training_inputs_table = loadTable("training_inputs.csv");
   training_outputs_table = loadTable("training_outputs.csv");
