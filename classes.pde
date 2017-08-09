@@ -7,24 +7,24 @@ class NeuralNetwork {
   int epoch;
   float cost;
 
-  NeuralNetwork(int[] structure, int network_input_count) {
+  NeuralNetwork(int[] network_structure, int network_input_count) {
     // Constructor
 
-    synapses = new float[structure.length][][]; // defined as [layer][neuron][input]
-    neurons = new float[structure.length][];
-    deltas = new float[structure.length][];
+    synapses = new float[network_structure.length][][]; // defined as [layer][neuron][input]
+    neurons = new float[network_structure.length][];
+    deltas = new float[network_structure.length][];
     epoch = 0;
 
     for (int layer_index=0; layer_index<synapses.length; layer_index++) {
 
-      int neuron_count = structure[layer_index];
+      int neuron_count = network_structure[layer_index];
       int input_count;
       if (layer_index == 0) {
         // First layer takes the network input as input
         input_count = network_input_count;
       } else {
         // Other layers take the neurons of the previous layer as input
-        input_count = structure[layer_index-1];
+        input_count = network_structure[layer_index-1];
       }
 
       synapses[layer_index] = new float[neuron_count][input_count+1]; // Adding bias
