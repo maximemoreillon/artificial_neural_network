@@ -1,6 +1,7 @@
-Table training_inputs_table, training_outputs_table;
-
 NeuralNetwork neural_network;
+
+Table training_inputs_table;
+Table training_outputs_table;
 
 float[][] training_inputs;
 float[][] training_outputs;
@@ -15,24 +16,7 @@ int[] network_structure = new int[0]; // layers will be added later
 void setup(){
   size(1280, 900);
   
-  training_inputs_table = loadTable("training_inputs.csv");
-  training_outputs_table = loadTable("training_outputs.csv");
-  
-  // initialize training arrays
-  training_inputs = new float[training_inputs_table.getColumnCount()][training_inputs_table.getRowCount()];
-  training_outputs = new float[training_outputs_table.getColumnCount()][training_outputs_table.getRowCount()];
-  
-  for (int column=0; column<training_inputs_table.getColumnCount(); column++) {
-    for (int row=0; row<training_inputs_table.getRowCount(); row++){
-      training_inputs[column][row] = training_inputs_table.getFloat(row,column);
-    }
-  }
-  
-  for (int column=0; column<training_outputs_table.getColumnCount(); column++) {
-    for (int row=0; row<training_outputs_table.getRowCount(); row++){
-      training_outputs[column][row] = training_outputs_table.getFloat(row,column);
-    }
-  }
+  training_data_init();
   
   validation_inputs = training_inputs;
   validation_outputs = training_outputs;

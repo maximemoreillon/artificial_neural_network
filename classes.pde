@@ -77,6 +77,28 @@ class NeuralNetwork {
       }
     }
   }
+  
+  void train(float[][] training_inputs, float[][] training_outputs, float learning_rate) {
+    // Adjusts the network's so as to yield a correct output when given a certain input
+    
+    cost = 0.0;
+    for (int training_set_index=0; training_set_index<training_inputs.length; training_set_index++) {
+
+      float[] training_input = training_inputs[training_set_index];
+      float[] training_output = training_outputs[training_set_index];
+
+      forward_propagation(training_input);
+
+      float[] network_output = neurons[neurons.length-1];
+      for (int output_index=0; output_index<training_output.length; output_index++) {
+        cost += 0.5 * (training_output[output_index] - network_output[output_index]) * (training_output[output_index] - network_output[output_index]);
+      }
+
+      backward_propagation(training_inputs[training_set_index], training_outputs[training_set_index]);
+      update_weights(training_inputs[training_set_index], learning_rate);
+    }
+    epoch ++;
+  }
 
   void backward_propagation(float[] training_input, float[] training_output) {
     // Computes the delta of each neuron
@@ -128,27 +150,7 @@ class NeuralNetwork {
     }
   }
 
-  void train(float[][] training_inputs, float[][] training_outputs, float learning_rate) {
-    // Adjusts the network's so as to yield a correct output when given a certain input
-    
-    cost = 0.0;
-    for (int training_set_index=0; training_set_index<training_inputs.length; training_set_index++) {
-
-      float[] training_input = training_inputs[training_set_index];
-      float[] training_output = training_outputs[training_set_index];
-
-      forward_propagation(training_input);
-
-      float[] network_output = neurons[neurons.length-1];
-      for (int output_index=0; output_index<training_output.length; output_index++) {
-        cost += 0.5 * (training_output[output_index] - network_output[output_index]) * (training_output[output_index] - network_output[output_index]);
-      }
-
-      backward_propagation(training_inputs[training_set_index], training_outputs[training_set_index]);
-      update_weights(training_inputs[training_set_index], learning_rate);
-    }
-    epoch ++;
-  }
+  
 
 
   void display(float x, float y, float w, float h, float[] input) {
