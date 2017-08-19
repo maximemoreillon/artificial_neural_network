@@ -203,14 +203,13 @@ class NeuralNetwork {
           float synapse_weight = synapses[layer_index][neuron_index][input_index];
           float colorMap = 0;
           float widthMap = 0;
-          if (synapse_weight>0)
-          {
+          if (synapse_weight>0) {
             colorMap = map(synapse_weight, 0, max_weight, synapse_min_brightness, synapse_max_brightness);
             widthMap = map(synapse_weight, 0, max_weight, synapse_min_width, synapse_max_width);
             stroke(colorMap, 0, 0);
             strokeWeight(widthMap);
-          } else
-          {
+          }
+          else {
             colorMap = map(synapse_weight, min_weight, 0, synapse_max_brightness, synapse_min_brightness);
             widthMap = map(synapse_weight, min_weight, 0, synapse_max_width, synapse_min_width);
             stroke(colorMap);
@@ -281,4 +280,3 @@ class NeuralNetwork {
     }
   }
 }
-
