@@ -153,7 +153,7 @@ class NeuralNetwork {
   
 
 
-  void display(float x, float y, float w, float h, float[] input) {
+  void display(float x, float y, float w, float h, float[] network_input) {
     // Display the neural network at (x,y) with a width w and height h and with its neurons activated according to the given input
     
     // Parameters
@@ -268,15 +268,15 @@ class NeuralNetwork {
     rectMode(CENTER);
     strokeWeight(neuron_stroke_weight);
     fill(0);
-    for (int input_index=0; input_index<input.length; input_index++) {
+    for (int input_index=0; input_index<network_input.length; input_index++) {
       float pos_x = x-0.5*w;
-      float pos_y = map(input_index, -1, input.length+1, y-0.5*h, y+0.5*h);
-      float col = map(input[input_index], 1, 0, 0, 255);
+      float pos_y = map(input_index, -1, network_input.length+1, y-0.5*h, y+0.5*h);
+      float col = map(network_input[input_index], 1, 0, 0, 255);
       stroke(255);
       fill(0);
       rect(pos_x, pos_y, 2*neuron_radius, 2*neuron_radius);
       fill(255);
-      text(input[input_index], pos_x, pos_y);
+      text(network_input[input_index], pos_x, pos_y);
     }
   }
 }
