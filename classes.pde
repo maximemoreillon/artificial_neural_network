@@ -90,12 +90,14 @@ class NeuralNetwork {
       forward_propagation(training_input);
 
       float[] network_output = neurons[neurons.length-1];
+      
+      // computing cost
       for (int output_index=0; output_index<training_output.length; output_index++) {
         cost += 0.5 * (training_output[output_index] - network_output[output_index]) * (training_output[output_index] - network_output[output_index]);
       }
 
-      backward_propagation(training_inputs[training_set_index], training_outputs[training_set_index]);
-      update_weights(training_inputs[training_set_index], learning_rate);
+      backward_propagation(training_input, training_output);
+      update_weights(training_input, learning_rate);
     }
     epoch ++;
   }

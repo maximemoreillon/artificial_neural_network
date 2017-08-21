@@ -31,7 +31,7 @@ void setup(){
 void draw(){
   background(0);
   
-  neural_network.train(training_inputs,training_outputs,0.5);
+  neural_network.train(training_inputs,training_outputs,0.1);
   neural_network.forward_propagation(validation_inputs[validation_input_index]);
   neural_network.display(width/2, height/2, width/1.2, height/1.2, validation_inputs[validation_input_index]);
   
