@@ -265,20 +265,46 @@ class NeuralNetwork {
       fill(255, 0, 0);
       text("1", pos_x, pos_y);
     }
-
+    
+    
+    
+    
     // Inputs
+    
+    
+     // find min and max weights of current layer
+      float min_input = 9999;
+      float max_input = -9999;
+      for (int input_index = 0; input_index < network_input.length; input_index++) {
+        if (network_input[input_index] > max_input) {
+          max_input = network_input[input_index];
+        }
+        if (network_input[input_index] < min_input) {
+          min_input = network_input[input_index];
+        }
+      }
+      
+      
     rectMode(CENTER);
     strokeWeight(neuron_stroke_weight);
     fill(0);
     for (int input_index=0; input_index<network_input.length; input_index++) {
       float pos_x = x-0.5*w;
       float pos_y = map(input_index, -1, network_input.length+1, y-0.5*h, y+0.5*h);
-      float col = map(network_input[input_index], 1, 0, 0, 255);
-      stroke(255);
+      float colorMap = 0;
+      float input = network_input[input_index];
+      if (input>0) {
+        colorMap = map(input, 0, max_input, synapse_min_brightness, synapse_max_brightness);
+        stroke(colorMap, 0, 0);
+      }
+      else {
+        colorMap = map(input, min_input, 0, synapse_max_brightness, synapse_min_brightness);
+        stroke(colorMap);
+      }
       fill(0);
       rect(pos_x, pos_y, 2*neuron_radius, 2*neuron_radius);
       fill(255);
-      text(network_input[input_index], pos_x, pos_y);
+      text(input, pos_x, pos_y);
     }
   }
 }

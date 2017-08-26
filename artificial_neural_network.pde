@@ -14,7 +14,7 @@ int validation_input_index = 0;
 int[] network_structure = new int[0]; // layers will be added later
 
 void setup(){
-  size(1280, 900);
+  size(1280, 1000);
   
   training_data_init();
   
