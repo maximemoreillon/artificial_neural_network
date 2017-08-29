@@ -1,7 +1,7 @@
 void training_data_init(){
   
-  training_inputs_table = loadTable("training_inputs.csv");
-  training_outputs_table = loadTable("training_outputs.csv");
+  training_inputs_table = loadTable("data_sets/training_inputs_hod.csv");
+  training_outputs_table = loadTable("data_sets/training_outputs_hod.csv");
   
   // initialize training arrays
   training_inputs = new float[training_inputs_table.getColumnCount()][training_inputs_table.getRowCount()];
