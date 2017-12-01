@@ -26,12 +26,13 @@ void setup(){
   network_structure = append(network_structure,training_outputs[0].length);
   neural_network = new NeuralNetwork(network_structure, training_inputs[0].length);
   
+  
 }
 
 void draw(){
   background(0);
   
-  neural_network.train(training_inputs,training_outputs,0.0005);
+  neural_network.train(training_inputs,training_outputs,0.0001);
   neural_network.forward_propagation(validation_inputs[validation_input_index]);
   neural_network.display(width/2, height/2, width/1.2, height/1.2, validation_inputs[validation_input_index]);
   
@@ -40,7 +41,7 @@ void draw(){
   textAlign(LEFT,UP);
   textSize(16);
   text("Epoch: " + neural_network.epoch,100,text_y);
-  text("Cost: " + neural_network.cost,220,text_y);
+  text("Error: " + nf(100*neural_network.error/training_inputs.length,2,2) + "%",220,text_y);
   text("Validation input index: " + (validation_input_index+1),400,text_y);
 }
 

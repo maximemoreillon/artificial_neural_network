@@ -6,6 +6,7 @@ class NeuralNetwork {
   
   int epoch;
   float cost;
+  float error;
 
   NeuralNetwork(int[] network_structure, int network_input_count) {
     // Constructor
@@ -82,6 +83,7 @@ class NeuralNetwork {
     // Adjusts the network's so as to yield a correct output when given a certain input
     
     cost = 0.0;
+    error = 0.0;
     for (int training_set_index=0; training_set_index<training_inputs.length; training_set_index++) {
 
       float[] training_input = training_inputs[training_set_index];
@@ -93,6 +95,7 @@ class NeuralNetwork {
       
       // computing cost
       for (int output_index=0; output_index<training_output.length; output_index++) {
+        error += abs(training_output[output_index] - network_output[output_index]);
         cost += 0.5 * (training_output[output_index] - network_output[output_index]) * (training_output[output_index] - network_output[output_index]);
       }
 
@@ -196,6 +199,7 @@ class NeuralNetwork {
            endY = map(neuron_index, -1, synapses[layer_index].length, y-0.5*h, y+0.5*h);
         }
         else {
+          // The last neuron of the layer is the bias, which is not connected to the previous layer
           endY = map(neuron_index, -1, synapses[layer_index].length+1, y-0.5*h, y+0.5*h);
         }
         
@@ -250,15 +254,14 @@ class NeuralNetwork {
     }
 
     // Bias
-    // Neurons
     ellipseMode(RADIUS);
     textAlign(CENTER, CENTER);
     strokeWeight(neuron_stroke_weight);
     textSize(10);
     fill(0);
     for (int layer_index=0; layer_index<synapses.length; layer_index++) {
-      float pos_y = map(synapses[layer_index][0].length-1, -1, synapses[layer_index][0].length, y-0.5*h, y+0.5*h);  // not too sure about this one
       float pos_x = map(layer_index-1, -1, synapses.length-1, x-0.5*w, x+0.5*w);
+      float pos_y = map(synapses[layer_index][0].length-1, -1, synapses[layer_index][0].length, y-0.5*h, y+0.5*h);  // not too sure about this one
       stroke(255, 0, 0);
       fill(0);
       ellipse(pos_x, pos_y, neuron_radius, neuron_radius);
@@ -270,19 +273,17 @@ class NeuralNetwork {
     
     
     // Inputs
-    
-    
-     // find min and max weights of current layer
-      float min_input = 9999;
-      float max_input = -9999;
-      for (int input_index = 0; input_index < network_input.length; input_index++) {
-        if (network_input[input_index] > max_input) {
-          max_input = network_input[input_index];
-        }
-        if (network_input[input_index] < min_input) {
-          min_input = network_input[input_index];
-        }
+    // find min and max weights of current layer
+    float min_input = 9999;
+    float max_input = -9999;
+    for (int input_index = 0; input_index < network_input.length; input_index++) {
+      if (network_input[input_index] > max_input) {
+        max_input = network_input[input_index];
       }
+      if (network_input[input_index] < min_input) {
+        min_input = network_input[input_index];
+      }
+    }
       
       
     rectMode(CENTER);
