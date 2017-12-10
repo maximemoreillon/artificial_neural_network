@@ -56,11 +56,8 @@ class NeuralNetwork {
 
       // Input is network output for first layer and then neurons of previous layer
       float[] input;
-      if (layer_index == 0) {
-        input = network_input;
-      } else {
-        input = neurons[layer_index-1];
-      }
+      if (layer_index == 0) input = network_input;
+      else input = neurons[layer_index-1];
 
       for (int neuron_index = 0; neuron_index < synapses[layer_index].length; neuron_index++) {
         float synaptic_sum = 0;
@@ -132,15 +129,11 @@ class NeuralNetwork {
     // Updates the synapses of the network using the deltas computed with backward_propagation
 
     for (int layer_index=0; layer_index<synapses.length; layer_index++) {
-      
+ 
+      // Use network input for the first layer and previouslayer neurons for the other layers
       float[] input;
-      
-      // Use network input for the first layer and previosu layer neurons for the other layers
-      if (layer_index == 0) {
-        input = training_input;
-      } else {
-        input = neurons[layer_index-1];
-      }
+      if (layer_index == 0) input = training_input;
+      else input = neurons[layer_index-1];
 
       for (int neuron_index = 0; neuron_index < synapses[layer_index].length; neuron_index++) {
         // Normal inputs
@@ -176,6 +169,7 @@ class NeuralNetwork {
     for (int layer_index=0; layer_index<synapses.length; layer_index++) {
 
       // find min and max weights of current layer
+        // THIS SHOULD BE CHANGED TO THE FIRST SYNAPSE
       float min_weight = 9999;
       float max_weight = -9999;
       for (int neuron_index = 0; neuron_index < synapses[layer_index].length; neuron_index++) {
